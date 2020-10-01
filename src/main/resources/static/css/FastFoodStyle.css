@@ -100,10 +100,14 @@ hr {
 
 /*Formulario FF*/
 .formularioFF {
-  background: #00ff62;
   padding: 50px 100px;
   border: 2px solid black;
   box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px black;
+}
+
+.form-label{
+  font-size: 25px;
+  color: #e5ff00;
 }
 
 input {
