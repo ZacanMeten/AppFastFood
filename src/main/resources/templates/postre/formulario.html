@@ -10,9 +10,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
     />
-    <!--Font Indie Flower-->
+    <!--Font Dancing-->
     <link
-      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
       rel="stylesheet"
     />
 
@@ -31,6 +31,7 @@
             <label class="form-label" for="Nombre">Nombre del postre:</label>
             <input
               name="Nombre"
+              style="font-family: 'Dancing Script', cursive;"
               th:field="*{nombre}"
               required="required"
               pattern="[A-Z][a-zA-Z\s]{1,29}"
@@ -43,6 +44,7 @@
             <label class="form-label" for="precioU">Precio (S/.):</label>
             <input
               name="precioU"
+              style="font-family: 'Dancing Script', cursive;"
               required="required"
               th:field="*{precio_unit}"
               pattern="[0-9]{5}.[0-9]{2}"
@@ -57,6 +59,7 @@
             <label class="form-label" for="descuento">Descuento:</label>
             <input
               name="descuento"
+              style="font-family: 'Dancing Script', cursive;"
               required="required"
               th:field="*{dsct_prc}"
               placeholder="Descuento %"
