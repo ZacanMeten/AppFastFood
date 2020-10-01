@@ -40,7 +40,7 @@
             th:text="${desse.dsct_prc} + '% de descuento' "
           ></span>
           <div class="card-body">
-            <img th:src="@{/img/images/}" alt="img" />
+            <img th:src="@{/img/images/}+${desse.nombre}+'.png'" alt="img" />
             <p th:text=" 'Precio: '+${desse.precio_unit}+' S/.'"></p>
             <a
               th:href="@{/postres/new/}+${desse.id_producto}"
