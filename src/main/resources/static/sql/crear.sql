@@ -1,22 +1,27 @@
 USE master
 GO
 
+DROP DATABASE BDFastandFood
+GO
+
 CREATE DATABASE BDFastandFood
 GO
 USE BDFastandFood
 GO
 
+/*
 DROP TABLE DETALLE_PED;
 DROP TABLE PEDIDOS;
 DROP TABLE CLIENTES;
 DROP TABLE STAFF;
 DROP TABLE USUARIOS;
 DROP TABLE PRODUCTOS;
+*/
 
 CREATE TABLE USUARIOS(
 	[id_user] int IDENTITY(1,1) PRIMARY KEY,
 	[usuario] varchar(30) NOT NULL,
-	[contraseña] varchar(30) NOT NULL
+	[contrasenia] varchar(100) NOT NULL
 )
 GO
 CREATE TABLE CLIENTES(
@@ -61,10 +66,12 @@ CREATE TABLE DETALLE_PED(
 )
 
 /** inserts **/
+/*
 INSERT INTO USUARIOS VALUES ('anthony','anthony12'),
 			('maricielo','maricielo12'),
 			('carlos','carlos12')
 GO
+*/
 
 INSERT INTO PRODUCTOS VALUES
            ('Tres Leches', 15.9, 0),
