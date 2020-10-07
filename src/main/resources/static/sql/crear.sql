@@ -71,7 +71,8 @@ INSERT INTO PRODUCTOS VALUES
 		   ('Torta Helada', 13.5, 0),
            ('Torta de Matrimonio', 240.25, 22),
 		   ('Soda Dietetica', 10.34, 0),
-		   ('Pistacho', 24.5, 20)
+		   ('Pastel de Pistacho', 24.5, 20),
+		   ('Ratatouille', 22.5, 10)
 GO
 
 

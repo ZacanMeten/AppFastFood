@@ -40,7 +40,10 @@
             th:text="${desse.dsct_prc} + '% de descuento' "
           ></span>
           <div class="card-body">
-            <img th:src="@{/img/images/}+${desse.nombre}+'.png'" alt="img" />
+            <img
+              style="width: 150px; height: 160px"
+              th:src="@{/img/images/}+${desse.nombre}+'.png' "
+            />
             <p th:text=" 'Precio: '+${desse.precio_unit}+' S/.'"></p>
             <a
               th:href="@{/postres/new/}+${desse.id_producto}"
@@ -50,7 +53,7 @@
             <a
               th:href="@{/postres/delete/}+${desse.id_producto}"
               class="fas fa-ban"
-              onclick="return confirm('Estas seguro de eliminar?');"
+              onclick="return confirm('Estas seguro de eliminar este postre?');"
             >
             </a>
           </div>
