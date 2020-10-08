@@ -25,12 +25,15 @@ class FastfoodAppApplicationTests {
 
 	@Test
 	void crearUsuario() {
+		// Creando el Usuario
 		Usuario us = new Usuario();
-		us.setId_user(99);
-		us.setNombre("anthony");
-		//Encriptando la contrasenia
+		us.setNombre("Anthony");
+		// Encriptando la contrasenia
 		us.setContrasenia(encoder.encode("anthony1"));
 
+		// Guarda el usuario en la BD
+		repo.save(new Usuario("CarlosD", encoder.encode("carlosdiaz")));
+		repo.save(new Usuario("Maricielo", encoder.encode("maricielomorales")));
 		Usuario retorno = repo.save(us);
 
 		assertTrue(retorno.getNombre().equalsIgnoreCase(us.getNombre()));

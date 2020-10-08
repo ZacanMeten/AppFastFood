@@ -20,7 +20,7 @@ DROP TABLE PRODUCTOS;
 
 CREATE TABLE USUARIOS(
 	[id_user] int IDENTITY(1,1) PRIMARY KEY,
-	[nombre] varchar(30) NOT NULL,
+	[nombre] varchar(30) NOT NULL UNIQUE,
 	[contrasenia] varchar(100) NOT NULL
 )
 GO

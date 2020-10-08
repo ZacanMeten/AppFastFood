@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "USUARIOS")
 public class Usuario implements Serializable {
@@ -21,9 +20,13 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_user;
-    
+
     private String nombre;
     private String contrasenia;
+
+    public Usuario() {
+
+    }
 
     public int getId_user() {
         return id_user;
@@ -49,5 +52,9 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    
+    public Usuario(String nombre, String contrasenia) {
+        this.nombre = nombre;
+        this.contrasenia = contrasenia;
+    }
+
 }
