@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" th:xmlns="www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio</title>
+    <!--Font Awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <!--Font Dancing-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/FastFoodStyle.css}" />
+  </head>
+  <body>
+    <nav th:replace="plantilla/plantilla :: nav"></nav>
+    <div th:replace="plantilla/plantilla :: footer"></div>
+  </body>
+</html>

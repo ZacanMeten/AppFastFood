@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head th:fragment="head">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +27,7 @@
         <div class="nav-menu">
           <ul>
             <li>
-              <a href="#"
+              <a th:href="@{/home}"
                 >Inicio <i class="fas fa-home" aria-hidden="true"></i>
               </a>
             </li>
@@ -37,10 +37,11 @@
               </a>
             </li>
             <li>
-              <a href="#">
-                Salir
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-              </a>
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              <span
+                ><form th:action="@{/logout}" method="POST">
+                  <input type="submit" value="Cerrar Sesion" /></form
+              ></span>
             </li>
           </ul>
         </div>
