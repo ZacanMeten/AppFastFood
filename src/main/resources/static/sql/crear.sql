@@ -73,7 +73,7 @@ INSERT INTO USUARIOS VALUES ('anthony','anthony12'),
 			('carlos','carlos12')
 GO
 */
-/*
+
 INSERT INTO PRODUCTOS VALUES
            ('Tres Leches', 15.9, 0, null),
 		   ('Torta Helada', 13.5, 0, null),
@@ -82,7 +82,7 @@ INSERT INTO PRODUCTOS VALUES
 		   ('Pastel de Pistacho', 24.5, 20, null),
 		   ('Ratatouille', 22.5, 10, null)
 GO
-*/
+
 
 /** SELECTS **/
 SELECT * FROM USUARIOS;
