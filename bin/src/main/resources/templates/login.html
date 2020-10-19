@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ingreso</title>
+
+    <link rel="stylesheet" th:href="@{/css/formMaxlogin.css}" />
+    <script src:href="@{/js/formLogin.js}"></script>
+  </head>
+  <body>
+    <div th:if="${param.error}">Invalido usuario o contrasenia.</div>
+    <div th:if="${param.logout}">Acabas de salir de tu sesion.</div>
+
+    <div class="container">
+      <div class="card"></div>
+      <div class="card">
+        <h1 class="title">Ingreso de usuario: </h1>
+        <form th:action="@{/login}" method="post">
+          <div class="input-container">
+            <input
+              type="text"
+              id="nombreuser"
+              name="username"
+              required="required"
+            />
+            <label for="nombreuser">Nombre de Usuario</label>
+            <div class="bar"></div>
+          </div>
+          <div class="input-container">
+            <input
+              type="password"
+              name="password"
+              id="contrasenia"
+              required="required"
+            />
+            <label for="contrasenia">Contraseña: </label>
+            <div class="bar"></div>
+          </div>
+          <div class="button-container">
+            <input type="submit" value="Entrar"></input>
+          </div>
+        </form>
+      </div>
+     
+    </div>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" th:xmlns="www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fast & Food - Postres</title>
+
+    <!--Font Awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <!--Font Dancing-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/FastFoodStyle.css}" />
+  </head>
+  <body>
+    <nav th:replace="plantilla/plantilla :: nav"></nav>
+
+    <div class="contenedor">
+      <h1 class="titulo" th:text="${titulo}"></h1>
+      <a style="display: flexbox" th:href="@{/postres/new/}">
+        <i class="fas fa-plus-square"></i>
+        <span style="font-family: 'Dancing Script', cursive;  font-size: 30px;" 
+          >Agregar nuevo Postre</span
+        >
+      </a>
+      <!--Lista de Productos-->
+      <div class="ff-cards">
+        <div th:each="desse: ${postres}">
+          <h3 th:text="${desse.nombre}"></h3>
+          <span
+            style="font-size: 13px"
+            class="badge badge-success"
+            th:if="${desse.dsct_prc!=0}"
+            th:text="${desse.dsct_prc} + '% de descuento' "
+          ></span>
+          <div class="card-body">
+            <img
+              style="width: 150px; height: 160px"
+              th:src="@{'data:image/jpeg;base64,'+${desse.getImage()}}"
+            />
+            <p th:text=" 'Precio: '+${desse.precio_unit}+' S/.'"></p>
+            <a
+              th:href="@{/postres/new/}+${desse.id_producto}"
+              class="fas fa-edit"
+            >
+            </a>
+            <a
+              th:href="@{/postres/delete/}+${desse.id_producto}"
+              class="fas fa-ban"
+              onclick="return confirm('Estas seguro de eliminar este postre?');"
+            >
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="plantilla/plantilla :: footer"></div>
+  </body>
+</html>
