@@ -25,7 +25,7 @@
       <h1 class="titulo" th:text="${titulo}"></h1>
       <a style="display: flexbox" th:href="@{/postres/new/}">
         <i class="fas fa-plus-square"></i>
-        <span style="font-family: 'Dancing Script', cursive"
+        <span style="font-family: 'Dancing Script', cursive;  font-size: 30px;" 
           >Agregar nuevo Postre</span
         >
       </a>
@@ -42,7 +42,7 @@
           <div class="card-body">
             <img
               style="width: 150px; height: 160px"
-              th:src="@{/img/images/}+${desse.nombre}+'.png' "
+              th:src="@{'data:image/jpeg;base64,'+${desse.getImage()}}"
             />
             <p th:text=" 'Precio: '+${desse.precio_unit}+' S/.'"></p>
             <a

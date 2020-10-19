@@ -24,6 +24,7 @@ public class Producto implements Serializable {
     private String nombre;
     private double precio_unit;
     private int dsct_prc;
+    private String image_data;
 
     public int getId_producto() {
         return id_producto;
@@ -46,6 +47,13 @@ public class Producto implements Serializable {
     }
 
     public void setPrecio_unit(double precio_unit) {
+        double limiteS = 99999.9;
+        if(precio_unit < 0){
+            precio_unit = 0;
+        }
+        if(precio_unit > limiteS){
+            precio_unit = limiteS;
+        }
         this.precio_unit = precio_unit;
     }
 
@@ -54,6 +62,18 @@ public class Producto implements Serializable {
     }
 
     public void setDsct_prc(int dsct_prc) {
+        if(dsct_prc < 0)    dsct_prc=0;
+        if(dsct_prc > 70)   dsct_prc=70;
         this.dsct_prc = dsct_prc;
     }
+
+    public String getImage() {
+        return image_data;
+    }
+
+    public void setImage(String image) {
+        this.image_data = image;
+    }
+
+    
 }

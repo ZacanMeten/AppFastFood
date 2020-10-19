@@ -46,7 +46,8 @@ CREATE TABLE PRODUCTOS(
 	id_producto int IDENTITY(1,1) primary key,
 	nombre varchar(30) not null,
 	precio_unit decimal(7,2) not null,
-	dsct_prc int NOT NULL CHECK (dsct_prc <= 100) DEFAULT(0)
+	dsct_prc int NOT NULL CHECK (dsct_prc <= 100) DEFAULT(0),
+	image_data NTEXT
 )
 
 CREATE TABLE PEDIDOS(
@@ -72,16 +73,16 @@ INSERT INTO USUARIOS VALUES ('anthony','anthony12'),
 			('carlos','carlos12')
 GO
 */
-
+/*
 INSERT INTO PRODUCTOS VALUES
-           ('Tres Leches', 15.9, 0),
-		   ('Torta Helada', 13.5, 0),
-           ('Torta de Matrimonio', 240.25, 22),
-		   ('Soda Dietetica', 10.34, 0),
-		   ('Pastel de Pistacho', 24.5, 20),
-		   ('Ratatouille', 22.5, 10)
+           ('Tres Leches', 15.9, 0, null),
+		   ('Torta Helada', 13.5, 0, null),
+           ('Torta de Matrimonio', 240.25, 22, null),
+		   ('Soda Dietetica', 10.34, 0, null),
+		   ('Pastel de Pistacho', 24.5, 20, null),
+		   ('Ratatouille', 22.5, 10, null)
 GO
-
+*/
 
 /** SELECTS **/
 SELECT * FROM USUARIOS;

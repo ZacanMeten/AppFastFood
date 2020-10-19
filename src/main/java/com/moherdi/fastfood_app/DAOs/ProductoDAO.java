@@ -27,7 +27,8 @@ public class ProductoDAO implements IProductoDAO {
     @Transactional
     @Override
     public void saveProducto(Producto producto) {
-        if (producto != null && producto.getId_producto() > 0) {
+        int identificadorN = producto.getId_producto();
+        if (producto != null && identificadorN > 0) {
             em.merge(producto);
         } else {
             em.persist(producto);
