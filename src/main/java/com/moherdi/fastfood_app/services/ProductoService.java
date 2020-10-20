@@ -31,7 +31,9 @@ public class ProductoService {
             if (file.getSize() > 0 && file.getContentType().startsWith("image/")) {
                 nuevo.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
             } else {
-                nuevo.setImage(productoDAO.buscarProducto(producto.getId_producto()).getImage());
+                if (producto.getId_producto() > 0) {
+                    nuevo.setImage(productoDAO.buscarProducto(producto.getId_producto()).getImage());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
