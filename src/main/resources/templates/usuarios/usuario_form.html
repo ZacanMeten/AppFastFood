@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" th:xmlns="www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar Usuario</title>
+  </head>
+  <body>
+    <div>Registro de datos del cliente</div>
+
+    <form th:action="@{/signup}" th:object="${usuario}" method="post">
+      <div>
+        <label for="nombreusuario">Nombre de Usuario: </label>
+        <input name="nombreusuario" th:field="*{nombre}" type="text" />
+      </div>
+      <div>
+        <label for="contrasenia">Contraseña: </label>
+        <input name="contrasenia" th:field="*{contrasenia}" type="password" />
+      </div>
+
+      <input type="hidden" th:field="*{id_user}" />
+      <button type="submit">Enviar</button>
+    </form>
+  </body>
+</html>

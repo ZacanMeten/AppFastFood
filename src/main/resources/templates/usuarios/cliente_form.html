@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" th:xmlns="www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar Cliente</title>
+  </head>
+  <body>
+    <div>Registro de datos del cliente</div>
+    <form th:action="@{/signup/cliente}" th:object="${cliente}" method="post">
+      <div>
+        <label for="nombres">Nombres:<label>
+        <input name="nombres" th:field="*{nombres}" type="text" />
+      </div>
+      <div>
+        <label for="apellidos">Apellidos:</label>
+        <input name="apellidos" th:field="*{apellidos}" type="text" />
+      </div>
+      <div>
+        <label for="edad">Edad: </label>
+        <input name="edad" th:field="*{edad}" type="number" />
+      </div>
+      <div>
+        <label for="correo">Correo Electronico:</label>
+        <input name="correo" th:field="*{correo}" type="email" />
+      </div>
+      <div>
+        <label for="direccion">Direccion: </label>
+        <input name="direccion" th:field="*{direccion}" type="text" />
+      </div>
+
+      <input type="hidden" th:field="*{id_cli}" />
+      <button type="submit">Enviar</button>
+    </form>
+  </body>
+</html>

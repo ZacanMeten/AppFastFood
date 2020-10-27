@@ -42,7 +42,6 @@ public class ProductoController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String guardarProducto(@RequestParam("file") MultipartFile file, Producto producto) {
-        System.out.println("Tipor de archivo: "+ file.getContentType());
         producServ.saveProducto_toBD(file, producto);
         return "redirect:list";
     }
