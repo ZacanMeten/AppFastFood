@@ -72,20 +72,22 @@ CREATE TABLE DETALLE_PED
 	[precio] [decimal](8, 2) NOT NULL
 )
 
-/** inserts **/
-/*
-INSERT INTO USUARIOS VALUES ('anthony','anthony12'),
-			('maricielo','maricielo12'),
-			('carlos','carlos12')
+/** inserts 
+Contraseñas anthony1 - maricielo - CarlosDiaz
+**/
+
+INSERT INTO USUARIOS VALUES ('anthony','$2a$10$rdmOMpYi905bbEUP0jvJ3.82MRUQBe6IuTk8zHxVzSmsQspSS0p5a'),
+			('maricielo','$2a$10$2L8dUlIJPJ6eRB411pnXDO0z3glMK.hLHLcIM6EsGAPnK9ypxa0ga'),
+			('carlos','$2a$10$PeHT3cNi0CD7X7UUpT7Z4.uUh.GdtcpuzNJdwE5Fn2ZQttgTIlFjW')
 GO
-*/
+
 
 INSERT INTO PRODUCTOS
 VALUES
 	('Tres Leches', 15.9, 0, null),
 	('Torta Helada', 13.5, 0, null),
-	('Torta de Matrimonio', 240.25, 22, null),
-	('Soda Dietetica', 10.34, 0, null),
+	('Torta de Matrimonio', 240.2, 22, null),
+	('Soda Dietetica', 10.3, 0, null),
 	('Pastel de Pistacho', 24.5, 20, null),
 	('Ratatouille', 22.5, 10, null)
 GO

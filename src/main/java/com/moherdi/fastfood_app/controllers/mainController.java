@@ -73,7 +73,7 @@ public class mainController {
     public String guardar(Cliente cliente) {
         cliente.setUser(this.usuarioActual);
         repoCliente.save(cliente);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 }
