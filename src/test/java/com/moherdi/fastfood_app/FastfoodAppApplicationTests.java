@@ -27,9 +27,9 @@ class FastfoodAppApplicationTests {
 	void crearUsuario() {
 		// Creando el Usuario
 		Usuario us = new Usuario();
-		us.setNombre("CarlosD");
+		us.setNombre("Leriene");
 		// Encriptando la contrasenia
-		us.setContrasenia(encoder.encode("CarlosDiaz"));
+		us.setContrasenia(encoder.encode("Leriene"));
 
 		Usuario retorno = repo.save(us);
 		System.out.println("Usuario: "+us.getNombre()+" - Contraseña: "+us.getContrasenia());

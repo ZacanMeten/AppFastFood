@@ -48,4 +48,17 @@ public class ProductoDAO implements IProductoDAO {
         em.remove(postre);
     }
 
+    @Override
+    @Transactional
+    public List<Producto> findByNombre(String nombre) {
+        List<Producto> productos = getProductos();
+        for (int i = 0; i < productos.size(); i++) {
+            Producto e = productos.get(i);
+            if(e.getNombre().equalsIgnoreCase(nombre)){
+                productos.remove(i);
+            }
+        }
+        return productos;
+    }
+
 }

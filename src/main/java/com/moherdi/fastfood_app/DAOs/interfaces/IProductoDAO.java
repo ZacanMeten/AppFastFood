@@ -13,4 +13,6 @@ public interface IProductoDAO {
     public Producto buscarProducto(int id);
 
     public void borrarProducto(int id);
+
+    public List<Producto> findByNombre(String nombre);
 }

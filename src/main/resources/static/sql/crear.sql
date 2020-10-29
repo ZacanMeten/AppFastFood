@@ -59,13 +59,14 @@ CREATE TABLE PEDIDOS
 	[id_pedido] [int] IDENTITY(1,1) PRIMARY KEY,
 	[id_cli] [int] FOREIGN KEY REFERENCES CLIENTES(id_cli),
 	[fecha_emi] datetime DEFAULT GETDATE(),
-	[estado] [varchar](10) NOT NULL,
+	[estado] [varchar](10) DEFAULT ('PENDIENTE'),
 	[precio_total] decimal(8,2) NOT NULL,
 	[id_staff] [int] FOREIGN KEY REFERENCES STAFF(id_staff)
 )
 
 CREATE TABLE DETALLE_PED
 (
+	[id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[id_pedido] [int] FOREIGN KEY REFERENCES PEDIDOS(id_pedido) NOT NULL,
 	[id_prod] [int] FOREIGN KEY REFERENCES PRODUCTOS(id_producto) NOT NULL,
 	[cantidad] [int] NOT NULL,
@@ -73,14 +74,20 @@ CREATE TABLE DETALLE_PED
 )
 
 /** inserts 
-Contraseñas anthony1 - maricielo - CarlosDiaz
+Contraseñas anthony1 - maricielo - CarlosDiaz / Leriene
 **/
-
-INSERT INTO USUARIOS VALUES ('anthony','$2a$10$rdmOMpYi905bbEUP0jvJ3.82MRUQBe6IuTk8zHxVzSmsQspSS0p5a'),
-			('maricielo','$2a$10$2L8dUlIJPJ6eRB411pnXDO0z3glMK.hLHLcIM6EsGAPnK9ypxa0ga'),
-			('carlos','$2a$10$PeHT3cNi0CD7X7UUpT7Z4.uUh.GdtcpuzNJdwE5Fn2ZQttgTIlFjW')
+INSERT INTO USUARIOS
+VALUES
+	('anthony', '$2a$10$rdmOMpYi905bbEUP0jvJ3.82MRUQBe6IuTk8zHxVzSmsQspSS0p5a'),
+	('maricielo', '$2a$10$2L8dUlIJPJ6eRB411pnXDO0z3glMK.hLHLcIM6EsGAPnK9ypxa0ga'),
+	('carlos', '$2a$10$PeHT3cNi0CD7X7UUpT7Z4.uUh.GdtcpuzNJdwE5Fn2ZQttgTIlFjW'),
+	('Leriene', '$2a$10$XzziDjS2M4YtOq6mza2Ox.0sGuoHYNCPe8ZFb7ZdWB8FKPkvgyxSa')
 GO
 
+INSERT INTO CLIENTES
+VALUES
+	('Leriene Rosa', 'Marie Lein', 22, 'leriene@gmail.com', 'Calle Torres 250', 4)
+GO
 
 INSERT INTO PRODUCTOS
 VALUES
@@ -92,9 +99,16 @@ VALUES
 	('Ratatouille', 22.5, 10, null)
 GO
 
-
 /** SELECTS **/
 SELECT *
 FROM USUARIOS;
+
+Select *
+from CLIENTES;
 SELECT *
 FROM PRODUCTOS;
+
+SELECT *
+FROM PEDIDOS;
+SELECT *
+FROM DETALLE_PED;
