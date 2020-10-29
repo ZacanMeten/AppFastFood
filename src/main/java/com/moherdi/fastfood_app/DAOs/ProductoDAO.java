@@ -1,5 +1,6 @@
 package com.moherdi.fastfood_app.DAOs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -51,14 +52,16 @@ public class ProductoDAO implements IProductoDAO {
     @Override
     @Transactional
     public List<Producto> findByNombre(String nombre) {
-        List<Producto> productos = getProductos();
-        for (int i = 0; i < productos.size(); i++) {
-            Producto e = productos.get(i);
-            if(e.getNombre().equalsIgnoreCase(nombre)){
-                productos.remove(i);
+        List<Producto> lista = getProductos();
+        List<Producto> retorno = new ArrayList<>();
+        for (int i = 0; i < lista.size(); i++) {
+            Producto p = lista.get(i);
+            if (p.getNombre().contains(nombre)) {
+                System.out.println(nombre + " se contiene a " + p.getNombre());
+                retorno.add(p);
             }
         }
-        return productos;
+        return retorno;
     }
 
 }

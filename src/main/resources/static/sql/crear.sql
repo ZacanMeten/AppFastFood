@@ -58,8 +58,8 @@ CREATE TABLE PEDIDOS
 (
 	[id_pedido] [int] IDENTITY(1,1) PRIMARY KEY,
 	[id_cli] [int] FOREIGN KEY REFERENCES CLIENTES(id_cli),
-	[fecha_emi] datetime DEFAULT GETDATE(),
-	[estado] [varchar](10) DEFAULT ('PENDIENTE'),
+	[fecha_emi] DATE DEFAULT CURRENT_TIMESTAMP,
+	[estado] [varchar](10) DEFAULT 'PENDIENTE',
 	[precio_total] decimal(8,2) NOT NULL,
 	[id_staff] [int] FOREIGN KEY REFERENCES STAFF(id_staff)
 )

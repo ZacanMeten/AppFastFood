@@ -52,6 +52,7 @@ public class Pedido implements Serializable {
 
     // Contrus
     public Pedido() {
+        this.estado = "PENDIENTE";
         this.detalles = new ArrayList<DetallePedido>();
     }
 
