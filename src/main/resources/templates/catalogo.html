@@ -44,7 +44,9 @@
             <li>
               <i class="fas fa-user"></i>
               <span th:if="${cliente!=null}" th:text="${cliente.nombres}"></span
-              ><a th:unless="${cliente!=null}" th:href="@{/login}"> Iniciar Sesion </a>
+              ><a th:unless="${cliente!=null}" th:href="@{/login}">
+                Iniciar Sesion
+              </a>
             </li>
             <li th:if="${cliente!=null}">
               <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
@@ -58,6 +60,29 @@
         </div>
       </div>
     </nav>
+
+    <div class="contenedor">
+      <h1 class="titulo" th:text="${titulo}"></h1>
+      <!--Lista de Productos-->
+      <div class="ff-cards">
+        <div th:each="desse: ${postres}">
+          <h3 th:text="${desse.nombre}"></h3>
+          <span
+            style="font-size: 13px"
+            class="badge badge-success"
+            th:if="${desse.dsct_prc!=0}"
+            th:text="${desse.dsct_prc} + '% de descuento' "
+          ></span>
+          <div class="card-body">
+            <img
+              style="width: 150px; height: 160px"
+              th:src="@{'data:image/jpeg;base64,'+${desse.getImage()}}"
+            />
+            <p th:text=" 'Precio: '+${desse.precio_unit}+' S/.'"></p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div th:replace="plantilla/plantilla :: footer"></div>
   </body>

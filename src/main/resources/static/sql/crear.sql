@@ -99,6 +99,12 @@ VALUES
 	('Ratatouille', 22.5, 10, null)
 GO
 
+INSERT INTO STAFF
+VALUES
+	('Anthony', 'Hernandez Flores', 'anthony@hotmail.com', 'Administrador', 1),
+	('Maricielo', 'Morales', 'maricielo@hotmail.com', 'Administrador', 2),
+	('Carlos', 'Diaz', 'carlos@hotmail.com', 'Administrador', 3)
+GO
 /** SELECTS **/
 SELECT *
 FROM USUARIOS;
