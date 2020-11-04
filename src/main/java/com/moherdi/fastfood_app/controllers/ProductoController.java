@@ -3,10 +3,13 @@ package com.moherdi.fastfood_app.controllers;
 import java.util.Map;
 
 import com.moherdi.fastfood_app.DAOs.interfaces.IProductoDAO;
+import com.moherdi.fastfood_app.DAOs.interfaces.IUsuarioRepo;
 import com.moherdi.fastfood_app.entities.Producto;
 import com.moherdi.fastfood_app.services.ProductoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +26,15 @@ public class ProductoController {
     private ProductoService producServ;
 
     @Autowired
+    private IUsuarioRepo repoUser;
+
+    @Autowired
     private IProductoDAO productoDAO;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listarProductos(Model model) {
         model.addAttribute("titulo", "Postres");
+        model.addAttribute("username", repoUser.findByNombre(elUsuarioActual()).getNombre());
         model.addAttribute("postres", productoDAO.getProductos());
         return "postre/postres";
     }
@@ -67,4 +74,17 @@ public class ProductoController {
         return "redirect:/postres/list";
     }
 
+    // Obtener el usuario actual
+    private String elUsuarioActual() {
+        String user;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Obtener usuario Logeado
+        if (principal instanceof UserDetails) {
+            user = ((UserDetails) principal).getUsername();
+        } else {
+            user = principal.toString();
+        }
+        return user;
+    }
 }

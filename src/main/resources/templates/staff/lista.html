@@ -18,6 +18,9 @@
     <link rel="stylesheet" th:href="@{/css/FastFoodStyle.css}" />
   </head>
   <body>
+    <!--Navigacion-->
+    <nav th:replace="plantilla/plantilla :: nav"></nav>
+    <!--Contenedor-->
     <div>
       <h1 th:text="${titulo}"></h1>
       <a style="display: flexbox" th:href="@{/staff/signup/}">

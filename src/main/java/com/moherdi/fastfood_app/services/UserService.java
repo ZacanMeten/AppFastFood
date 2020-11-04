@@ -32,5 +32,5 @@ public class UserService implements UserDetailsService {
         UserDetails userDetails = new User(us.getNombre(), us.getContrasenia(), authorities);
         return userDetails;
     }
-
+    
 }
