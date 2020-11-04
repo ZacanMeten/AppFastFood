@@ -58,12 +58,15 @@ public class PedidoController {
         return repoProducto.findByNombre(termino);
     }
 
-    //Guardar el pedido
+    // Guardar el pedido
     @PostMapping(value = "/form")
-    public String guardarPedido(Pedido pedido, @RequestParam(name = "item_id[]", required = true) Integer[] itemId,
-            @RequestParam(name = "cantidad[]", required = true) Integer[] cantidad, RedirectAttributes flash,
+    public String guardarPedido(Pedido pedido, @RequestParam(name = "item_id[]", required = false) Integer[] itemId,
+            @RequestParam(name = "cantidad[]", required = false) Integer[] cantidad, RedirectAttributes flash,
             SessionStatus status) {
-
+        // Verificar que haya mas de un producto
+        if (itemId == null || cantidad == null)
+            return "redirect:/catalogo";
+        // CAlcular el pedido
         Double precioRela;
         for (int i = 0; i < itemId.length; i++) {
             Producto prod = repoProducto.buscarProducto(itemId[i]);
@@ -81,7 +84,7 @@ public class PedidoController {
         repoPedido.save(pedido);
         status.setComplete();
         flash.addFlashAttribute("success", "Pedido creado con exito");
-        return "redirect:/";
+        return "redirect:/catalogo";
     }
 
 }

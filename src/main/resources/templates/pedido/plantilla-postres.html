@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
-    <table th:fragment="itemsPedido" >
+    <table style="display: none;" th:fragment="itemsPedido" >
       <tbody id="plantillaItemsPedido">
         <tr id="row_{ID}">
-          <td >
+          <td style="display: none;">
             <input type="hidden" value="{ID}" name="item_id[]" />
           </td>
           <td>{NOMBRE}</td>
