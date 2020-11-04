@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" th:xmlns="www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio</title>
+    <!--Font Awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <!--Font Dancing-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/FastFoodStyle.css}" />
+  </head>
+  <body>
+    <nav th:fragment="nav">
+      <div class="nav-main">
+        <a th:href="@{/catalogo}"
+          ><img th:src="@{/img/logoFF.png}" alt="LOGO FF" class="nav-brand"
+        /></a>
+        <div class="nav-menu">
+          <ul>
+            <li>
+              <a th:href="@{/catalogo}"
+                >Inicio <i class="fas fa-home" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                th:if="${cliente!=null}"
+                th:href="@{/pedido/form/}+${cliente.id_cli}"
+              >
+                Ordenar <i class="fas fa-handshake"></i>
+              </a>
+              <a th:unless="${cliente!=null}" th:href="@{/login}">
+                Ordenar <i class="fas fa-handshake"></i
+              ></a>
+            </li>
+            <li>
+              <i class="fas fa-user"></i>
+              <span th:if="${cliente!=null}" th:text="${cliente.nombres}"></span
+              ><a th:unless="${cliente!=null}" th:href="@{/login}"> Iniciar Sesion </a>
+            </li>
+            <li th:if="${cliente!=null}">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              <span>
+                <form th:action="@{/logout}" method="POST">
+                  <input type="submit" value="Cerrar Sesion" />
+                </form>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div th:replace="plantilla/plantilla :: footer"></div>
+  </body>
+</html>

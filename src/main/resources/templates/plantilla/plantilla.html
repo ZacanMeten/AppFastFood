@@ -21,13 +21,13 @@
   <body>
     <nav th:fragment="nav">
       <div class="nav-main">
-        <a th:href="@{/home}"
+        <a th:href="@{/inicio}"
           ><img th:src="@{/img/logoFF.png}" alt="LOGO FF" class="nav-brand"
         /></a>
         <div class="nav-menu">
           <ul>
             <li>
-              <a th:href="@{/home}"
+              <a th:href="@{/inicio}"
                 >Inicio <i class="fas fa-home" aria-hidden="true"></i>
               </a>
             </li>
@@ -37,11 +37,19 @@
               </a>
             </li>
             <li>
+              <a th:href="@{/staff/}"> Staff <i class="fas fa-id-card"></i> </a>
+            </li>
+            <li>
+              <i class="fas fa-user"></i>
+              <span th:if="${username!=null}" th:text="${username}"></span>
+            </li>
+            <li>
               <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-              <span
-                ><form th:action="@{/logout}" method="POST">
-                  <input type="submit" value="Cerrar Sesion" /></form
-              ></span>
+              <span>
+                <form th:action="@{/logout}" method="POST">
+                  <input type="submit" value="Cerrar Sesion"/>
+                </form>
+              </span>
             </li>
           </ul>
         </div>

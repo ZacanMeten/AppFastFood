@@ -58,6 +58,7 @@ public class PedidoController {
         return repoProducto.findByNombre(termino);
     }
 
+    //Guardar el pedido
     @PostMapping(value = "/form")
     public String guardarPedido(Pedido pedido, @RequestParam(name = "item_id[]", required = true) Integer[] itemId,
             @RequestParam(name = "cantidad[]", required = true) Integer[] cantidad, RedirectAttributes flash,

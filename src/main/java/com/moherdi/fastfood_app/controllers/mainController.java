@@ -37,35 +37,29 @@ public class mainController {
 
     @GetMapping(value = "/successlogin")
     public String getTipoUsuario() {
-        Usuario usuarioActual;
-        String user;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Obtener usuario Logeado
-        if (principal instanceof UserDetails) {
-            user = ((UserDetails) principal).getUsername();
-        } else {
-            user = principal.toString();
-        }
-
         // Buscar si es cliente o Staff
-        usuarioActual = repoUser.findByNombre(user);
-        if (repoCliente.findByUser(usuarioActual) != null) {
-            return "redirect:/inicio";// Redirige al apagina de inico del Cliente
+        Usuario usuarioActual = repoUser.findByNombre(elUsuarioActual());
+        Cliente isCliente = repoCliente.findByUser(usuarioActual);
+
+        if (isCliente != null) {
+            return "redirect:/catalogo";// Redirige al apagina de inico del Cliente
         } else {
-            return "redirect:/catalogo";// Redirige a la pagina de inico del Staff
+            return "redirect:/inicio";// Redirige a la pagina de inico del Staff
         }
 
     }
 
     @GetMapping(value = { "/inicio" })
-    public String inicio() {
+    public String inicio(Model model) {
+        model.addAttribute("username", repoUser.findByNombre(elUsuarioActual()).getNombre());
         return "inicio";
     }
 
-    @RequestMapping(value = "/catalogo", method = RequestMethod.GET)
-    public String listarProductos(Model model) {
-        model.addAttribute("titulo", "Postres");
+    @RequestMapping(value = { "/", "/catalogo" }, method = RequestMethod.GET)
+    public String paginaPrincipalCliente(Model model) {
+        Cliente cli = repoCliente.findByUser(repoUser.findByNombre(elUsuarioActual()));
+        model.addAttribute("cliente", cli);
+        model.addAttribute("titulo", "Catalogo de Postres");
         model.addAttribute("postres", daoProducto.getProductos());
         return "catalogo";
     }
@@ -101,4 +95,17 @@ public class mainController {
         return "redirect:/login";
     }
 
+    // Obtener el usuario actual
+    private String elUsuarioActual() {
+        String user;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Obtener usuario Logeado
+        if (principal instanceof UserDetails) {
+            user = ((UserDetails) principal).getUsername();
+        } else {
+            user = principal.toString();
+        }
+        return user;
+    }
 }
