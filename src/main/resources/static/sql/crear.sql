@@ -105,12 +105,14 @@ VALUES
 	('Maricielo', 'Morales', 'maricielo@hotmail.com', 'Administrador', 2),
 	('Carlos', 'Diaz', 'carlos@hotmail.com', 'Administrador', 3)
 GO
+
 /** SELECTS **/
 SELECT *
 FROM USUARIOS;
 
-Select *
+SELECT *
 from CLIENTES;
+
 SELECT *
 FROM PRODUCTOS;
 

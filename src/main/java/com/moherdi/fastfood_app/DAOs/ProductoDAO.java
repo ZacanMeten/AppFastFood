@@ -57,7 +57,6 @@ public class ProductoDAO implements IProductoDAO {
         for (int i = 0; i < lista.size(); i++) {
             Producto p = lista.get(i);
             if (p.getNombre().contains(nombre)) {
-                System.out.println(nombre + " se contiene a " + p.getNombre());
                 retorno.add(p);
             }
         }
