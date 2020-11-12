@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" th:xmlns="www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pedido</title>
+    <!--Font Awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <!--Font Dancing-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/FastFoodStyle.css}" />
+  </head>
+  <body>
+    <nav th:replace="plantilla/plantilla :: nav"></nav>
+    <div>
+      <div>
+        <div th:text="${titulo}"></div>
+        <div>
+          <ul>
+            <li th:text="${pedido.id_pedido}"></li>
+            <li th:text="${pedido.cliente.nombres}"></li>
+            <li th:text="${pedido.fecha_emi}"></li>
+            <li th:text="${pedido.estado}"></li>
+            <li th:text="${pedido.precio_total}"></li>
+            <li th:text="${pedido.estado}"></li>
+          </ul>
+          <table>
+            <thead>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio Unitario</th>
+              <th>Descuento</th>
+              <th>Cantidad</th>
+              <th>Precio Neto</th>
+            </thead>
+            <tbody th:each="detalle: ${pedido.detalles}">
+              <tr>
+                <td th:text="${detalle.producto.id_producto}"></td>
+                <td th:text="${detalle.producto.nombre}"></td>
+                <td th:text="${detalle.producto.precio_unit}"></td>
+                <td th:text="${detalle.producto.dsct_prc}"></td>
+                <td th:text="${detalle.cantidad}"></td>
+                <td th:text="${detalle.precio}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div th:replace="plantilla/plantilla :: footer"></div>
+  </body>
+</html>

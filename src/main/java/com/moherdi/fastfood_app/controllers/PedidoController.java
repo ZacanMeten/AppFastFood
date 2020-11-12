@@ -13,6 +13,8 @@ import com.moherdi.fastfood_app.entities.Pedido;
 import com.moherdi.fastfood_app.entities.Producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +60,62 @@ public class PedidoController {
         return repoProducto.findByNombre(termino);
     }
 
+    // Listar PEdidos
+    @GetMapping(value = "/lista")
+    public String verPedidos(Map<String, Object> map) {
+        List<Pedido> pedidos = repoPedido.findAll();
+        if (pedidos.isEmpty()) {
+            return "redirect:/";
+        }
+        map.put("pedidos", pedidos);
+        map.put("titulo", "Pedidos");
+        map.put("username", elUsuarioActual());
+        return "pedido/ver_staff";
+    }
+
+    // Buscar Pedido ID
+    @GetMapping(value = "/buscar/{id}")
+    public String verPedido(@PathVariable(value = "id") int id, Map<String, Object> model) {
+
+        Optional<Pedido> pedido = repoPedido.findById(id);
+        if (!pedido.isPresent()) {
+            return "redirect:/";
+        }
+        model.put("titulo", "Pedido N° " + id);
+        model.put("pedido", pedido.get());
+        model.put("username", elUsuarioActual());
+        return "pedido/pedidoID";
+    }
+
+    // Buscar Pedido para el Staff
+    @GetMapping(value = "/setEstado/{id}")
+    public String verPedidoStaff(@PathVariable(value = "id") int id, Map<String, Object> model) {
+        Optional<Pedido> pedido = repoPedido.findById(id);
+        if (!pedido.isPresent()) {
+            return "redirect:/";
+        }
+        model.put("titulo", "Pedido N° " + id);
+        model.put("pedido", pedido.get());
+        model.put("estate", pedido.get().getEstado());
+        model.put("username", elUsuarioActual());
+        return "pedido/ped_staff_es";
+    }
+
+    // Actualizar el Estado del Pedido
+    @PostMapping(value = "/setEstado")
+    public String actualizarEstado(@RequestParam(name = "id_pedido") int id,
+            @RequestParam(name = "estado") String estado) {
+        // Buscar el pedidoID
+        Optional<Pedido> pedido = repoPedido.findById(id);
+        Pedido pedido2 = pedido.get();
+        if (pedido2 == null) {
+            return "redirect:/pedido/buscar/id";
+        }
+        pedido2.setEstado(estado); // Actualiza el estado
+        repoPedido.save(pedido2); // Guarda el cambio
+        return "redirect:/pedido/lista";
+    }
+
     // Guardar el pedido
     @PostMapping(value = "/form")
     public String guardarPedido(Pedido pedido, @RequestParam(name = "item_id[]", required = false) Integer[] itemId,
@@ -87,4 +145,17 @@ public class PedidoController {
         return "redirect:/catalogo";
     }
 
+    // Obtener el usuario actual
+    private String elUsuarioActual() {
+        String user;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Obtener usuario Logeado
+        if (principal instanceof UserDetails) {
+            user = ((UserDetails) principal).getUsername();
+        } else {
+            user = principal.toString();
+        }
+        return user;
+    }
 }

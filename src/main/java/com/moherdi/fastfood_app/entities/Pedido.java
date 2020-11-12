@@ -30,7 +30,7 @@ public class Pedido implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_pedidos;
+    private int id_pedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cli")
@@ -46,6 +46,10 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_pedido", nullable = false)
     private List<DetallePedido> detalles;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_staff")
+    private Staff staff;
+
     public void addDetallePedido(DetallePedido detallePedido) {
         this.detalles.add(detallePedido);
     }
@@ -53,6 +57,7 @@ public class Pedido implements Serializable {
     // Contrus
     public Pedido() {
         this.estado = "PENDIENTE";
+        this.staff = null;
         this.detalles = new ArrayList<DetallePedido>();
     }
 
@@ -62,12 +67,12 @@ public class Pedido implements Serializable {
     }
 
     // Getters Setters
-    public int getId_pedidos() {
-        return id_pedidos;
+    public int getId_pedido() {
+        return id_pedido;
     }
 
-    public void setId_pedidos(int id_pedidos) {
-        this.id_pedidos = id_pedidos;
+    public void setId_pedido(int id_pedido) {
+        this.id_pedido = id_pedido;
     }
 
     public Cliente getCliente() {
@@ -114,6 +119,14 @@ public class Pedido implements Serializable {
 
     public void setDetalles(List<DetallePedido> detalles) {
         this.detalles = detalles;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
 }
