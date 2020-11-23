@@ -8,6 +8,7 @@ import com.moherdi.fastfood_app.DAOs.interfaces.IClienteDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IPedidoDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IProductoDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IStaffDAO;
+import com.moherdi.fastfood_app.DAOs.interfaces.IUsuarioRepo;
 import com.moherdi.fastfood_app.entities.Cliente;
 import com.moherdi.fastfood_app.entities.DetallePedido;
 import com.moherdi.fastfood_app.entities.Pedido;
@@ -38,6 +39,9 @@ public class PedidoController {
     private IStaffDAO repoStaff;
 
     @Autowired
+    private IUsuarioRepo repoUsuario;
+
+    @Autowired
     private IProductoDAO repoProducto;
 
     @Autowired
@@ -56,6 +60,7 @@ public class PedidoController {
         pedido.setCliente(cliente.get());
         map.put("pedido", pedido);
         map.put("titulo", "Realizar Pedido");
+        map.put("cliente", repoCliente.findByUser(repoUsuario.findByNombre(UserActualService.obtener_Nombre())));
         return "pedido/form";
     }
 
@@ -112,7 +117,8 @@ public class PedidoController {
     // Actualizar el Estado del Pedido
     @PostMapping(value = "/setEstado")
     public String actualizarEstado(@RequestParam(name = "id_pedido") int id,
-            @RequestParam(name = "estado") String estado, @RequestParam(name = "staff", required = false) Integer idStaff) {
+            @RequestParam(name = "estado") String estado,
+            @RequestParam(name = "staff", required = false) Integer idStaff) {
         // Buscar el pedidoID
         Optional<Pedido> pedido = repoPedido.findById(id);
         Pedido pedido2 = pedido.get();
