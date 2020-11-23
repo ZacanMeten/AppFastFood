@@ -11,10 +11,9 @@ import com.moherdi.fastfood_app.entities.Cliente;
 import com.moherdi.fastfood_app.entities.DetallePedido;
 import com.moherdi.fastfood_app.entities.Pedido;
 import com.moherdi.fastfood_app.entities.Producto;
+import com.moherdi.fastfood_app.services.UserActualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,11 +64,11 @@ public class PedidoController {
     public String verPedidos(Map<String, Object> map) {
         List<Pedido> pedidos = repoPedido.findAll();
         if (pedidos.isEmpty()) {
-            return "redirect:/";
+            return "redirect:/inicio";
         }
         map.put("pedidos", pedidos);
         map.put("titulo", "Pedidos");
-        map.put("username", elUsuarioActual());
+        map.put("username", UserActualService.obtener_Nombre());
         return "pedido/ver_staff";
     }
 
@@ -83,7 +82,7 @@ public class PedidoController {
         }
         model.put("titulo", "Pedido N° " + id);
         model.put("pedido", pedido.get());
-        model.put("username", elUsuarioActual());
+        model.put("username", UserActualService.obtener_Nombre());
         return "pedido/pedidoID";
     }
 
@@ -97,7 +96,7 @@ public class PedidoController {
         model.put("titulo", "Pedido N° " + id);
         model.put("pedido", pedido.get());
         model.put("estate", pedido.get().getEstado());
-        model.put("username", elUsuarioActual());
+        model.put("username", UserActualService.obtener_Nombre());
         return "pedido/ped_staff_es";
     }
 
@@ -145,17 +144,4 @@ public class PedidoController {
         return "redirect:/catalogo";
     }
 
-    // Obtener el usuario actual
-    private String elUsuarioActual() {
-        String user;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Obtener usuario Logeado
-        if (principal instanceof UserDetails) {
-            user = ((UserDetails) principal).getUsername();
-        } else {
-            user = principal.toString();
-        }
-        return user;
-    }
 }

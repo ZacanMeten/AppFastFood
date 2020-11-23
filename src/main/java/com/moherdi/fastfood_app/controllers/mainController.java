@@ -7,6 +7,7 @@ import com.moherdi.fastfood_app.DAOs.interfaces.IProductoDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IUsuarioRepo;
 import com.moherdi.fastfood_app.entities.Cliente;
 import com.moherdi.fastfood_app.entities.Usuario;
+import com.moherdi.fastfood_app.services.UserActualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,7 +52,7 @@ public class mainController {
 
     @GetMapping(value = { "/inicio" })
     public String inicio(Model model) {
-        model.addAttribute("username", repoUser.findByNombre(elUsuarioActual()).getNombre());
+        model.addAttribute("username", repoUser.findByNombre(UserActualService.obtener_Nombre()).getNombre());
         return "inicio";
     }
 

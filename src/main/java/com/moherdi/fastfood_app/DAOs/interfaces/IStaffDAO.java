@@ -10,4 +10,6 @@ public interface IStaffDAO extends JpaRepository<Staff, Integer> {
     Staff findByNombres(String nombres);
 
     Staff findByUser(Usuario id_user);
+
+    Staff finfByRol(String rol);
 }

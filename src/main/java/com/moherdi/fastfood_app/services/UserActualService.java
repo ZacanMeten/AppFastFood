@@ -1,10 +1,11 @@
 package com.moherdi.fastfood_app.services;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserActualService {
 
-    private String obtener_Nombre() {
+    public static String obtener_Nombre() {
         String user;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
