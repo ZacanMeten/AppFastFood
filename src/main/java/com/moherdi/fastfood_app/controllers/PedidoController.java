@@ -7,10 +7,12 @@ import java.util.Optional;
 import com.moherdi.fastfood_app.DAOs.interfaces.IClienteDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IPedidoDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IProductoDAO;
+import com.moherdi.fastfood_app.DAOs.interfaces.IStaffDAO;
 import com.moherdi.fastfood_app.entities.Cliente;
 import com.moherdi.fastfood_app.entities.DetallePedido;
 import com.moherdi.fastfood_app.entities.Pedido;
 import com.moherdi.fastfood_app.entities.Producto;
+import com.moherdi.fastfood_app.entities.Staff;
 import com.moherdi.fastfood_app.services.UserActualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PedidoController {
     @Autowired
     private IClienteDAO repoCliente;
+
+    @Autowired
+    private IStaffDAO repoStaff;
 
     @Autowired
     private IProductoDAO repoProducto;
@@ -93,6 +98,10 @@ public class PedidoController {
         if (!pedido.isPresent()) {
             return "redirect:/";
         }
+        if (pedido.get().getStaff() == null) {
+            List<Staff> repartidores = repoStaff.findByRol("Repartidor");
+            model.put("repartidores", repartidores);
+        }
         model.put("titulo", "Pedido N° " + id);
         model.put("pedido", pedido.get());
         model.put("estate", pedido.get().getEstado());
@@ -103,13 +112,18 @@ public class PedidoController {
     // Actualizar el Estado del Pedido
     @PostMapping(value = "/setEstado")
     public String actualizarEstado(@RequestParam(name = "id_pedido") int id,
-            @RequestParam(name = "estado") String estado) {
+            @RequestParam(name = "estado") String estado, @RequestParam(name = "staff", required = false) Integer idStaff) {
         // Buscar el pedidoID
         Optional<Pedido> pedido = repoPedido.findById(id);
         Pedido pedido2 = pedido.get();
         if (pedido2 == null) {
             return "redirect:/pedido/buscar/id";
         }
+        // Si el repartidor no es un vacio, se actualiza con el nuevo repartidor
+        // asignado
+        if (idStaff != null)
+            pedido2.setStaff(repoStaff.findById(idStaff).get());
+
         pedido2.setEstado(estado); // Actualiza el estado
         repoPedido.save(pedido2); // Guarda el cambio
         return "redirect:/pedido/lista";

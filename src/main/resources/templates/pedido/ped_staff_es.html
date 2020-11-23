@@ -28,19 +28,41 @@
             <li th:text="${pedido.cliente.nombres}"></li>
             <li th:text="${pedido.fecha_emi}"></li>
             <li th:text="${pedido.precio_total}"></li>
+            <li
+              th:if="${pedido.staff!=null}"
+              th:text="${pedido.staff.nombres}"
+            ></li>
             <form th:action="@{/pedido/setEstado}" method="POST">
               <input type="hidden" th:field="*{pedido.id_pedido}" />
               <select th:field="*{pedido.estado}">
-                <option th:if="${estate=='PENDIENTE'}" value="PENDIENTE">PENDIENTE</option>
-                <option th:if="${estate=='PENDIENTE' || estate=='ACEPTADO'}"
+                <option th:if="${estate=='PENDIENTE'}" value="PENDIENTE">
+                  PENDIENTE
+                </option>
+                <option
+                  th:if="${estate=='PENDIENTE' || estate=='ACEPTADO'}"
                   value="ACEPTADO"
-                >ACEPTADO</option>
-                <option th:if="${estate=='ACEPTADO'|| estate=='EN CAMINO'}"
+                >
+                  ACEPTADO
+                </option>
+                <option
+                  th:if="${estate=='ACEPTADO'|| estate=='EN CAMINO'}"
                   value="EN CAMINO"
-                >EN CAMINO</option>
-                <option th:if="${estate=='EN CAMINO'|| estate=='COMPLETADO'}"
+                >
+                  EN CAMINO
+                </option>
+                <option
+                  th:if="${estate=='EN CAMINO'|| estate=='COMPLETADO'}"
                   value="COMPLETADO"
-                >COMPLETADO</option>
+                >
+                  COMPLETADO
+                </option>
+              </select>
+              <select th:if="${pedido.staff==null}" th:field="*{pedido.staff}">
+                <option
+                  th:each="rep : ${repartidores}"
+                  th:value="${rep.id_staff}"
+                  th:text="${rep.nombres}"
+                />
               </select>
               <button type="submit">Guardar</button>
             </form>
