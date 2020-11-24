@@ -36,7 +36,7 @@ public class StaffController {
     @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
     public String listarStaff(Model model) {
         model.addAttribute("titulo", "Staff (Personal Registrado)");
-        model.addAttribute("username", actualUs.obtener_Usuario());
+        model.addAttribute("username", actualUs.obtener_Nombre());
         model.addAttribute("staffs", repoStaff.findAll());
         return "staff/lista";
     }

@@ -94,8 +94,8 @@ public class PedidoController {
             return "redirect:/inicio";
         }
         map.put("pedidos", pedidos);
-        map.put("titulo", "Pedidos de "+ actualUs.obtener_nombresC());
-        map.put("username", actualUs.obtener_Nombre());
+        map.put("titulo", "Pedidos de " + actualUs.obtener_nombresC());
+        map.put("cliente", repoCliente.findByUser(actualUs.obtener_Usuario()));
         return "pedido/ver_cliente";
     }
 
