@@ -10,14 +10,13 @@ import com.moherdi.fastfood_app.entities.Usuario;
 import com.moherdi.fastfood_app.services.UserActualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class mainController {
@@ -34,13 +33,13 @@ public class mainController {
     @Autowired
     private IProductoDAO daoProducto;
 
-    private Usuario userAux;
+    @Autowired
+    private UserActualService actualUsuario;
 
     @GetMapping(value = "/successlogin")
     public String getTipoUsuario() {
         // Buscar si es cliente o Staff
-        Usuario usuarioActual = repoUser.findByNombre(elUsuarioActual());
-        Cliente isCliente = repoCliente.findByUser(usuarioActual);
+        Cliente isCliente = repoCliente.findByUser(actualUsuario.obtener_Usuario());
 
         if (isCliente != null) {
             return "redirect:/catalogo";// Redirige al apagina de inico del Cliente
@@ -52,13 +51,13 @@ public class mainController {
 
     @GetMapping(value = { "/inicio" })
     public String inicio(Model model) {
-        model.addAttribute("username", repoUser.findByNombre(UserActualService.obtener_Nombre()).getNombre());
+        model.addAttribute("username", actualUsuario.obtener_Nombre());
         return "inicio";
     }
 
     @RequestMapping(value = { "/", "/catalogo" }, method = RequestMethod.GET)
     public String paginaPrincipalCliente(Model model) {
-        Cliente cli = repoCliente.findByUser(repoUser.findByNombre(elUsuarioActual()));
+        Cliente cli = repoCliente.findByUser(actualUsuario.obtener_Usuario());
         model.addAttribute("cliente", cli);
         model.addAttribute("titulo", "Catalogo de Postres");
         model.addAttribute("postres", daoProducto.getProductos());
@@ -67,46 +66,23 @@ public class mainController {
 
     // Usuario
     @RequestMapping(value = "/signup")
-    public String nuevoUsuario(Map<String, Object> map) {
-        Usuario usuario_nuevo = new Usuario();
-        map.put("usuario", usuario_nuevo);
-        return "usuarios/usuario_form";
-    }
-
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String subirUsuario(Usuario usuario) {
-        usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
-        repoUser.save(usuario);
-        userAux = usuario;
-        System.out.println("ID de usuario" + usuario.getId_user());
-        return "redirect:/signup/cliente";
-    }
-
-    // Cliente
-    @RequestMapping(value = "/signup/cliente")
-    public String crearCliente(Map<String, Object> map) {
-        map.put("cliente", new Cliente());
+    public String nuevoCliente(Map<String, Object> map) {
+        Cliente c = new Cliente();
+        map.put("cliente", c);
         return "usuarios/cliente_form";
     }
 
-    @RequestMapping(value = "/signup/cliente", method = RequestMethod.POST)
-    public String guardar(Cliente cliente) {
-        cliente.setUser(this.userAux);
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String subirUsuario(Cliente cliente, @RequestParam(name = "username") String username,
+            @RequestParam(name = "contrasenia") String contrasenia) {
+        Usuario us = new Usuario();
+        us.setNombre(username);
+        us.setContrasenia(encoder.encode(contrasenia));
+        repoUser.save(us);
+        // Guardar en el repositorio
+        cliente.setUser(us);
         repoCliente.save(cliente);
         return "redirect:/login";
     }
 
-    // Obtener el usuario actual
-    private String elUsuarioActual() {
-        String user;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Obtener usuario Logeado
-        if (principal instanceof UserDetails) {
-            user = ((UserDetails) principal).getUsername();
-        } else {
-            user = principal.toString();
-        }
-        return user;
-    }
 }

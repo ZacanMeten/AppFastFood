@@ -6,10 +6,9 @@ import com.moherdi.fastfood_app.DAOs.interfaces.IStaffDAO;
 import com.moherdi.fastfood_app.DAOs.interfaces.IUsuarioRepo;
 import com.moherdi.fastfood_app.entities.Staff;
 import com.moherdi.fastfood_app.entities.Usuario;
+import com.moherdi.fastfood_app.services.UserActualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +30,13 @@ public class StaffController {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private UserActualService actualUs;
+
     @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
     public String listarStaff(Model model) {
         model.addAttribute("titulo", "Staff (Personal Registrado)");
-        model.addAttribute("username", repoUser.findByNombre(elUsuarioActual()).getNombre());
+        model.addAttribute("username", actualUs.obtener_Usuario());
         model.addAttribute("staffs", repoStaff.findAll());
         return "staff/lista";
     }
@@ -58,18 +60,5 @@ public class StaffController {
         staff.setUser(us);
         repoStaff.save(staff);
         return "redirect:/staff/list";
-    }
-
-    private String elUsuarioActual() {
-        String user;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Obtener usuario Logeado
-        if (principal instanceof UserDetails) {
-            user = ((UserDetails) principal).getUsername();
-        } else {
-            user = principal.toString();
-        }
-        return user;
     }
 }

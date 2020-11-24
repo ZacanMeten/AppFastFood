@@ -47,6 +47,9 @@ public class PedidoController {
     @Autowired
     private IPedidoDAO repoPedido;
 
+    @Autowired
+    private UserActualService actualUs;
+
     @RequestMapping(value = "/form/{clienteID}")
     public String crearPedido_cliente(@PathVariable(value = "clienteID") Integer clientID, Map<String, Object> map,
             RedirectAttributes flash) {
@@ -60,7 +63,7 @@ public class PedidoController {
         pedido.setCliente(cliente.get());
         map.put("pedido", pedido);
         map.put("titulo", "Realizar Pedido");
-        map.put("cliente", repoCliente.findByUser(repoUsuario.findByNombre(UserActualService.obtener_Nombre())));
+        map.put("cliente", repoCliente.findByUser(repoUsuario.findByNombre(actualUs.obtener_Nombre())));
         return "pedido/form";
     }
 
@@ -78,8 +81,22 @@ public class PedidoController {
         }
         map.put("pedidos", pedidos);
         map.put("titulo", "Pedidos");
-        map.put("username", UserActualService.obtener_Nombre());
+        map.put("username", actualUs.obtener_Nombre());
         return "pedido/ver_staff";
+    }
+
+    // Listar PEdidos
+    @GetMapping(value = "/lista/{cliente}")
+    public String verPedidosxCliente(@PathVariable(value = "cliente") int id, Map<String, Object> map) {
+        Optional<Cliente> c = repoCliente.findById(id);
+        List<Pedido> pedidos = repoPedido.findByCliente(c.get());
+        if (pedidos.isEmpty()) {
+            return "redirect:/inicio";
+        }
+        map.put("pedidos", pedidos);
+        map.put("titulo", "Pedidos de "+ actualUs.obtener_nombresC());
+        map.put("username", actualUs.obtener_Nombre());
+        return "pedido/ver_cliente";
     }
 
     // Buscar Pedido ID
@@ -92,7 +109,7 @@ public class PedidoController {
         }
         model.put("titulo", "Pedido N° " + id);
         model.put("pedido", pedido.get());
-        model.put("username", UserActualService.obtener_Nombre());
+        model.put("username", actualUs.obtener_Nombre());
         return "pedido/pedidoID";
     }
 
@@ -110,7 +127,7 @@ public class PedidoController {
         model.put("titulo", "Pedido N° " + id);
         model.put("pedido", pedido.get());
         model.put("estate", pedido.get().getEstado());
-        model.put("username", UserActualService.obtener_Nombre());
+        model.put("username", actualUs.obtener_Nombre());
         return "pedido/ped_staff_es";
     }
 

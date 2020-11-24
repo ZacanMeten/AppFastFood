@@ -27,7 +27,10 @@
             <li th:text="${pedido.id_pedido}"></li>
             <li th:text="${pedido.cliente.nombres}"></li>
             <li th:text="${pedido.fecha_emi}"></li>
-            <li th:text="${pedido.estado}"></li>
+            <li
+              th:if="${pedido.staff != null}"
+              th:text="${pedido.staff.nombres}"
+            ></li>
             <li th:text="${pedido.precio_total}"></li>
             <li th:text="${pedido.estado}"></li>
           </ul>

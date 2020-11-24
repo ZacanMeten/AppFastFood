@@ -7,9 +7,17 @@
   </head>
   <body>
     <div>Registro de datos del cliente</div>
-    <form th:action="@{/signup/cliente}" th:object="${cliente}" method="post">
+    <form th:action="@{/signup}" th:object="${cliente}" method="post">
       <div>
-        <label for="nombres">Nombres:<label>
+        <label for="username">Nombre de Usuario: </label>
+        <input name="username" type="text" required="required" />
+      </div>
+      <div>
+        <label for="contrasenia">Contraseña: </label>
+        <input name="contrasenia" type="password" required="required" />
+      </div>
+      <div>
+        <label for="nombres">Nombres:</label>
         <input name="nombres" th:field="*{nombres}" type="text" />
       </div>
       <div>

@@ -42,6 +42,17 @@
               ></a>
             </li>
             <li>
+              <a
+                th:if="${cliente!=null}"
+                th:href="@{/pedido/lista/}+${cliente.id_cli}"
+              >
+                Pedidos <i class="fas fa-receipt"></i>
+              </a>
+              <a th:unless="${cliente!=null}" th:href="@{/login}">
+                Pedidos <i class="fas fa-receipt"></i
+              ></a>
+            </li>
+            <li>
               <i class="fas fa-user"></i>
               <span th:if="${cliente!=null}" th:text="${cliente.nombres}"></span
               ><a th:unless="${cliente!=null}" th:href="@{/login}">
